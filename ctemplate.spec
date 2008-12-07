@@ -1,7 +1,7 @@
 Summary:	Simple and powerful template language for C++
 Name:		ctemplate
 Version:	0.91
-Release:	1
+Release:	2
 License:	BSD
 Group:		Applications
 Source0:	http://google-ctemplate.googlecode.com/files/%{name}-%{version}.tar.gz
@@ -89,7 +89,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%doc %{_docdir}
+%doc %{_docdir}/*
 
 %files devel
 %defattr(644,root,root,755)
