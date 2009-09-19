@@ -1,11 +1,11 @@
 Summary:	Simple and powerful template language for C++
 Name:		ctemplate
-Version:	0.93
+Version:	0.95
 Release:	1
 License:	BSD
 Group:		Applications
 Source0:	http://google-ctemplate.googlecode.com/files/%{name}-%{version}.tar.gz
-# Source0-md5:	bd42a10bbbcf3e4bffd21663c0bd61fa
+# Source0-md5:	d6cfabbe1742dbe6f3bd10b77be319f1
 URL:		http://code.google.com/p/google-ctemplate/
 BuildRequires:	libstdc++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -95,8 +95,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libctemplate*.so
 %attr(755,root,root) %{_libdir}/libctemplate*.la
-%dir %{_includedir}/google
-%{_includedir}/google/*.h
+%dir %{_includedir}/%{name}
+%{_includedir}/%{name}/*.h
 
 %files libs
 %defattr(644,root,root,755)
