@@ -101,7 +101,7 @@ rm -rf $RPM_BUILD_ROOT
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libctemplate*.so.*.*.*
-%ghost %attr(755,root,root) %{_libdir}/libctemplate*.so.?
+%attr(755,root,root) %ghost %{_libdir}/libctemplate*.so.?
 
 %files static
 %defattr(644,root,root,755)
