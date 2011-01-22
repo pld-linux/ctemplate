@@ -7,7 +7,10 @@ Group:		Applications
 Source0:	http://google-ctemplate.googlecode.com/files/%{name}-%{version}.tar.gz
 # Source0-md5:	7de5ce359a2f613f5c3fd309b36331f0
 URL:		http://code.google.com/p/google-ctemplate/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -66,6 +69,11 @@ Statyczna biblioteka CTemplate.
 %setup -q
 
 %build
+%{__libtoolize}
+%{__aclocal} -I m4
+%{__autoconf}
+%{__automake}
+export PTHREAD_LIBS="-lpthread"
 %configure
 %{__make}
 
