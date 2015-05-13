@@ -1,6 +1,7 @@
 #
 # Conditional build:
 %bcond_without	tests		# build without tests
+%bcond_without	static_libs	# don't build static libraries
 
 Summary:	Simple and powerful template language for C++
 Name:		ctemplate
@@ -80,6 +81,7 @@ Statyczna biblioteka CTemplate.
 %{__automake}
 export PTHREAD_LIBS="-lpthread"
 %configure \
+	%{!?with_static_libs:--disable-static} \
 	--disable-silent-rules
 %{__make}
 %{?with_test:%{__make} check}
@@ -119,10 +121,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/libctemplate.pc
 %{_pkgconfigdir}/libctemplate_nothreads.pc
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libctemplate.a
 %{_libdir}/libctemplate_nothreads.a
+%endif
 
 %files doc
 %defattr(644,root,root,755)
