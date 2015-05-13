@@ -1,11 +1,17 @@
+#
+# Conditional build:
+%bcond_without	tests		# build without tests
+
 Summary:	Simple and powerful template language for C++
 Name:		ctemplate
-Version:	0.97
+Version:	2.2
 Release:	1
 License:	BSD
 Group:		Applications
-Source0:	http://google-ctemplate.googlecode.com/files/%{name}-%{version}.tar.gz
-# Source0-md5:	7de5ce359a2f613f5c3fd309b36331f0
+# Google Code no longer provides downloads for projects, upstream
+# refuses to use Google Drive, they ask users to fetch from svn repository by themselves.
+Source0:	http://pkgs.fedoraproject.org/repo/pkgs/ctemplate/%{name}-%{version}.tar.gz/1de89d9073f473c1e31862c4581636f3/ctemplate-%{version}.tar.gz
+# Source0-md5:	1de89d9073f473c1e31862c4581636f3
 URL:		http://code.google.com/p/google-ctemplate/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -64,7 +70,6 @@ Static CTemplate library.
 %description static -l pl.UTF-8
 Statyczna biblioteka CTemplate.
 
-
 %prep
 %setup -q
 
@@ -74,12 +79,13 @@ Statyczna biblioteka CTemplate.
 %{__autoconf}
 %{__automake}
 export PTHREAD_LIBS="-lpthread"
-%configure
+%configure \
+	--disable-silent-rules
 %{__make}
+%{?with_test:%{__make} check}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -95,22 +101,29 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/make_tpl_varnames_h
 %attr(755,root,root) %{_bindir}/template-converter
 
-%files doc
+%files libs
 %defattr(644,root,root,755)
-%doc %{_docdir}/*
+%attr(755,root,root) %{_libdir}/libctemplate.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libctemplate.so.2
+%attr(755,root,root) %{_libdir}/libctemplate_nothreads.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libctemplate_nothreads.so.2
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libctemplate*.so
-%attr(755,root,root) %{_libdir}/libctemplate*.la
+%{_libdir}/libctemplate.so
+%{_libdir}/libctemplate_nothreads.so
+%{_libdir}/libctemplate.la
+%{_libdir}/libctemplate_nothreads.la
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/*.h
-
-%files libs
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libctemplate*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libctemplate*.so.?
+%{_pkgconfigdir}/libctemplate.pc
+%{_pkgconfigdir}/libctemplate_nothreads.pc
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libctemplate*.a
+%{_libdir}/libctemplate.a
+%{_libdir}/libctemplate_nothreads.a
+
+%files doc
+%defattr(644,root,root,755)
+%doc %{_docdir}/*
