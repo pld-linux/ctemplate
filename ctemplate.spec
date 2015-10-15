@@ -5,15 +5,13 @@
 
 Summary:	Simple and powerful template language for C++
 Name:		ctemplate
-Version:	2.2
+Version:	2.3
 Release:	1
 License:	BSD
 Group:		Applications
-# Google Code no longer provides downloads for projects, upstream
-# refuses to use Google Drive, they ask users to fetch from svn repository by themselves.
-Source0:	http://pkgs.fedoraproject.org/repo/pkgs/ctemplate/%{name}-%{version}.tar.gz/1de89d9073f473c1e31862c4581636f3/ctemplate-%{version}.tar.gz
-# Source0-md5:	1de89d9073f473c1e31862c4581636f3
-URL:		http://code.google.com/p/google-ctemplate/
+Source0:	https://github.com/OlafvdSpek/ctemplate/archive/%{name}-%{version}.tar.gz
+# Source0-md5:	3b91f3c1e7aa55cb4c2957acf77d6b9a
+URL:		https://github.com/OlafvdSpek/ctemplate/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
@@ -72,7 +70,7 @@ Static CTemplate library.
 Statyczna biblioteka CTemplate.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{name}-%{version}
 
 %build
 %{__libtoolize}
@@ -106,9 +104,9 @@ rm -rf $RPM_BUILD_ROOT
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libctemplate.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libctemplate.so.2
+%attr(755,root,root) %ghost %{_libdir}/libctemplate.so.3
 %attr(755,root,root) %{_libdir}/libctemplate_nothreads.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libctemplate_nothreads.so.2
+%attr(755,root,root) %ghost %{_libdir}/libctemplate_nothreads.so.3
 
 %files devel
 %defattr(644,root,root,755)
